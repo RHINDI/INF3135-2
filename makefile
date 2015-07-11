@@ -11,12 +11,12 @@
 CC = gcc
 OPTIONS = -Wall
 EXE = Tri
-OBJS = Tri.c
+OBJS = Tri.o
 file = list.txt
 
 .SUFFIXES: .c .o
 
-all: link
+all: clean start
 
 compile: $(OBJS)
 
@@ -32,7 +32,6 @@ link: compile
 clean:
 	rm $(EXE)
 	rm $(OBJS)
-	rm -f *~
 
 start: link
 	./$(EXE) $(file)
