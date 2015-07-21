@@ -11,8 +11,8 @@
 CC = gcc
 OPTIONS = -Wall
 EXE = Tri
-OBJS = Tri.o
-file = list.txt
+OBJS = main.o fileManager.o linkedList.o statistics.o
+file = 3.txt
 
 .SUFFIXES: .c .o
 
@@ -26,16 +26,12 @@ compile: $(OBJS)
 link: compile
 	$(CC) $(OBJS) -o $(EXE)
 
-
-#cible : nettoyage
-
 clean:
 	rm $(EXE)
 	rm $(OBJS)
 
 start: link
 	./$(EXE) $(file)
-
 
 
 
