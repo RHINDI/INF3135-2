@@ -10,7 +10,9 @@ FILE *readFile(char *argv)
   file = fopen(argv, "r");
   if (!file)
   {
-    printf("Erreur fichier source %d\n", errno);
+    printf("\n------------------------------------------------------------------\n"
+             "Erreur fichier source %d : \n"
+             "\n------------------------------------------------------------------\n", errno);
     exit(1);
   }
   return file;
@@ -22,7 +24,9 @@ FILE *writFile(char  *argv)
   file = fopen(argv, "w");
   if (!file)
   {
-    printf("Erreur fichier sortie %d\n", errno);
+    printf("\n------------------------------------------------------------------\n"
+             "Erreur fichier sortie %d : \n"
+             "\n------------------------------------------------------------------\n", errno);
     exit(1);
   }
   return file;
