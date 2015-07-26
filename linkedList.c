@@ -16,16 +16,15 @@ Node_t list_createNode(char *word)
   assert(node->word != NULL);
 
   strcpy(node->word , word);
-  node->nextNode =NULL;
+  node->nextNode = NULL;
 
   return node;
 }
 
-Node_t list_addNode(Node_t listNodes, Node_t newNode)
+void list_addNode(Node_t *listNodes, Node_t newNode)
 {
-    Node_t current, previous;
-    previous = NULL;
-    current = listNodes;
+    Node_t  previous = NULL;
+    Node_t current = *listNodes;
 
     while (current != NULL && strcmp(newNode->word, current->word) > 0)
     {
@@ -35,24 +34,22 @@ Node_t list_addNode(Node_t listNodes, Node_t newNode)
 
     if (current == NULL)
     {
-        listNodes->nextNode = newNode;
+        previous->nextNode = newNode;
 
     } else if (previous == NULL) {
-      newNode->nextNode = listNodes;
-      return newNode;
+      newNode->nextNode = *listNodes;
+      *listNodes = newNode;
 
     } else {
       newNode->nextNode = current;
       previous->nextNode = newNode;
-
     }
-  return  listNodes;
 }
 
-int list_existNode(Node_t listNodes, char *word)
+int list_existNode(Node_t *listNodes, char *word)
   {
     Node_t head;
-    head = listNodes;
+    head = *listNodes;
     while (head != NULL)
     {
       if (strcmp(word,head->word) == 0)
@@ -66,10 +63,10 @@ int list_existNode(Node_t listNodes, char *word)
   }
 
 
-void list_printNode(Node_t listNodes)
+void list_printNode(Node_t *listNodes)
 {
   Node_t  head;
-  head = listNodes;
+  head = *listNodes;
   while (head != NULL)
   {
     printf("%s\n", head->word);
@@ -77,10 +74,10 @@ void list_printNode(Node_t listNodes)
   }
 }
 
-int list_getLength(Node_t listNodes)
+int list_getLength(Node_t *listNodes)
 {
   Node_t  head;
-  head = listNodes;
+  head = *listNodes;
   int length = 0;
   while (head != NULL)
   {
@@ -90,10 +87,10 @@ int list_getLength(Node_t listNodes)
   return length;
 }
 
-void list_distroyNodes(Node_t listNodes)
+void list_distroyNodes(Node_t *listNodes)
 {
   Node_t  head, courant;
-  head = listNodes;
+  head = *listNodes;
   courant = head->nextNode;
   while (courant != NULL)
   {

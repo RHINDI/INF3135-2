@@ -4,38 +4,41 @@
 
 #include "linkedList.h"
 /**
- * documentation function
+ * écrire les statistiques accumuler sur le fichier d'entre
+ * et les résulta  du triée  dans un fichier
  *
- * param : .
- * Valeur de retour :  .*/
-void stat_printStatToFile(Node_t listNodes, FILE *ptrFile, char *argv);
+ * ptrFile : pointeur vers le debut de fichier.
+ * listNodes : Une référence vers la liste des noeuds.
+ * Valeur de retour : non applicable  .*/
+void stat_printStatToFile(Node_t *listNodes, FILE *ptrFile, char *argv);
 
 /**
- * documentation function
+ * Calcule le nombre des mots dans un fichier
  *
- * param : .
- * Valeur de retour :  .*/
+ * param : pointeur vers le debut de fichier .
+ * Valeur de retour : le nombre des mots dans le fichier .*/
 int stat_nbrWords(FILE *ptrFile);
 
 /**
- * documentation function
+ * Calcule le nombre des ligne dans un fichier
  *
- * param : .
- * Valeur de retour :  .*/
+ * ptrFile : pointeur vers le debut de fichier.
+ * Valeur de retour :  le nombre des lignes dans le fichier.*/
 int stat_nbrOfLines(FILE *ptrFile);
 
 /**
- * documentation function
+ * Calcule le nombre des caractère dans une liste
  *
- * param : .
- * Valeur de retour :  .*/
-int stat_getTotChars(Node_t listNodes);
+ * listNodes : Une référence vers la liste des noeuds.
+ * Valeur de retour :  le nombre total des caractère dans la liste .*/
+int stat_getTotChars(Node_t *listNodes);
 
 /**
- * documentation function
+ * Recherche  dans la liste la lettre la plus fréquente
  *
- * param : .
- * Valeur de retour :  .*/
-char stat_letterMostUsed(Node_t listNodes, int totChar);
+ * listNodes : Une référence vers la liste des noeuds.
+ * totChar : le nombre total des caractère.
+ * Valeur de retour :  la lettre la plus fréquente dans la liste .*/
+char stat_letterMostUsed(Node_t *listNodes, int totChar);
 
 #endif //STATISTICS_H

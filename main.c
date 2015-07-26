@@ -1,3 +1,21 @@
+/**
+ * @Fichier        main.c fileManager.c linkedList.c statistics.c
+ *
+ *  @Description     Trier une liste de mots provenant d'un fichier.
+ *
+ *  Ce fichier contient la fonction main() du programme Trier.
+ *
+ *
+ *  @Cours          : INF3135
+ *  @Group          : 50
+ *  @prof           : Jacques Berger
+ *  @auteur         : Rhindi Youssef
+ *  @code Permanent : RHIY20087605
+ */
+
+
+
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -6,69 +24,58 @@
 #include "statistics.h"
 
 /**
- * documentation function
+ * Valider les arguments passer en paramètre durant l'exécution du programme
  *
- * param : .
- * Valeur de retour :  .*/
+ * argc : le nombre des paramétré passer ou logiciel pendant l’exécution
+ * argv : Une référence vers le tableau contenant les noms des arguments
+ * Valeur de retour : non applicable  .*/
 void validateArgs(int argc, char **argv);
 
 /**
- * documentation function
+ * crée la liste chaîne avec les mots (sans doublon et triée )
+ * lits dans le fichier retourne un pointeur vers la liste
  *
- * param : .
- * Valeur de retour :  .*/
-Node_t fillTheList(FILE *ptrFile, int nbrWordsInFile);
+ * ptrFile : pointeur vers le debut de fichier.
+ * Valeur de retour : non applicable  .*/
+void fillTheList(FILE *ptrFile, Node_t *listNodes);
 
 int main(int argc, char** argv)
 {
   FILE *file;
-  int  nbrWordsInFile;
   Node_t listNodes = NULL;
 
   validateArgs(argc, argv);
-
   file = readFile(argv[1]);
-
-  nbrWordsInFile = stat_nbrWords(file);
-
-  listNodes = fillTheList(file, nbrWordsInFile);
-
-  list_printNode(listNodes);
+  fillTheList(file, &listNodes);
+  list_printNode(&listNodes);
 
   if(argv[2])
   {
-    stat_printStatToFile(listNodes, file, argv[3]);
+    stat_printStatToFile(&listNodes, file, argv[3]);
   }
 
-  list_distroyNodes(listNodes);
+  list_distroyNodes(&listNodes);
   fclose(file);
 
   return  0;
 }
 
-Node_t fillTheList(FILE *ptrFile, int nbrWordsInFile)
+void fillTheList(FILE *ptrFile, Node_t *listNodes)
 {
-  int i, wordLength;
-  char string[80];
-  Node_t  newNode, listNodes;
-  listNodes = NULL;
+  char word[81];
+  Node_t  newNode;
 
-  for (i = 0; i < nbrWordsInFile; ++i)
-  {
-    fscanf(ptrFile, " %s", string);
-    wordLength = (int) strlen(string) + 1;
-    string[wordLength] = '\0';
-
-    if (listNodes == NULL)
+    while(fscanf(ptrFile, " %s", word) != EOF)
     {
-      listNodes = list_createNode(string);
-    }else if (!list_existNode(listNodes, string)){
-      newNode = list_createNode(string);
-      listNodes = list_addNode(listNodes, newNode);
+      if (*listNodes == NULL)
+      {
+        *listNodes = list_createNode(word);
+      }else if (!list_existNode(listNodes, word)){
+        newNode = list_createNode(word);
+        list_addNode(listNodes, newNode);
+      }
     }
-  }
   fseek(ptrFile, 0, SEEK_SET);
-  return listNodes;
 }
 
 void validateArgs(int argc, char **argv)

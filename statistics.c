@@ -9,7 +9,7 @@
 
 char findLetter(char *array);
 
-void stat_printStatToFile(Node_t listNodes, FILE *ptrFile, char *argv)
+void stat_printStatToFile(Node_t *listNodes, FILE *ptrFile, char *argv)
 {
 
   FILE *outPutFile;
@@ -37,14 +37,14 @@ void stat_printStatToFile(Node_t listNodes, FILE *ptrFile, char *argv)
 
 
 
-char stat_letterMostUsed(Node_t listNodes, int totChars)
+char stat_letterMostUsed(Node_t *listNodes, int totChars)
 {
   char *array;
   array = (char *) calloc(totChars, sizeof(char));
   assert(array != NULL);
 
   Node_t head;
-  head = listNodes;
+  head = *listNodes;
 
   while (head != NULL)
   {
@@ -54,46 +54,30 @@ char stat_letterMostUsed(Node_t listNodes, int totChars)
   return findLetter(array);
 }
 
-char findLetter(char *array)
+char findLetter(char *arrayIn)
 {
-  int j, i , max , count;
-  char charMax = '\0';
-  max = 0;
-  count = 1;
+  int array[255] = {0};
+  int i, max ;
+  char carac;
 
-  for(i = 0; array[i] != '\0'; i++)
+  for(i = 0; arrayIn[i] != 0; i++)
   {
-    for (j = i +1 ; j < strlen(array); ++j)
-    {
-      if(array[i] == array[j])
-      {
-        ++count;
-      }
-    }
-
-    if(count > max)
-    {
-      max = count;
-      charMax = array[i];
-    }
-    count = 1;
+    ++array[(int)arrayIn[i]];
   }
-  free(array);
-  return charMax;
+
+  max = array[0];
+  for(i = 0; arrayIn[i] != 0; i++)
+  {
+    if( array[(int)arrayIn[i]] > max)
+    {
+      max = array[(int)arrayIn[i]];
+      carac = arrayIn[i];
+    }
+  }
+  free(arrayIn);
+  return carac;
 }
 
-int stat_getTotChars(Node_t listNodes)
-{
-  Node_t  head;
-  head = listNodes;
-  int totChars = 0;
-  while (head != NULL)
-  {
-    totChars += strlen(head->word);
-    head = head->nextNode;
-  }
-  return totChars;
-}
 
 int stat_nbrOfLines(FILE *ptrFile)
 {
@@ -111,9 +95,23 @@ int stat_nbrOfLines(FILE *ptrFile)
 }
 
 
+int stat_getTotChars(Node_t *listNodes)
+{
+  Node_t  head;
+  head = *listNodes;
+  int totChars = 0;
+  while (head != NULL)
+  {
+    totChars += strlen(head->word);
+    head = head->nextNode;
+  }
+  return totChars;
+}
+
+
 int stat_nbrWords(FILE *ptrFile)
 {
-  char word[80];
+  char word[81];
   int nbrWords = 0;
 
   while(fscanf(ptrFile, " %s", word) > 0 )
@@ -124,4 +122,33 @@ int stat_nbrWords(FILE *ptrFile)
   fseek(ptrFile, 0, SEEK_SET);
   return nbrWords;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

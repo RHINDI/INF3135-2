@@ -1,22 +1,20 @@
-//
-// Created by hackr on 7/15/15.
-//
 
-#ifndef SORT_FILEMANAGER_H
-#define SORT_FILEMANAGER_H
+#ifndef FILEMANAGER_H
+#define FILEMANAGER_H
 
 /**
- * documentation function
+ * Ouvrire un fichier pour la lecture
  *
- * param : .
- * Valeur de retour :  .*/
+ * param : pointeur vers chaîne de caractère du nom du fichier a lire.
+ * Valeur de retour : pointeur vers le debut de fichier  .*/
 FILE *readFile(char  *argv);
 
 /**
- * documentation function
+ * Ouvrire un fichier pour l'écriture
  *
- * param : .
- * Valeur de retour :  .*/
+ * param : pointeur vers la chaîne de caractère  du nom du fichier a écrire.
+ * Valeur de retour : pointeur vers le debut de fichier  .*/
 FILE *writFile(char  *argv);
 
-#endif //SORT_FILEMANAGER_H
+#endif //FILEMANAGER_H
+
